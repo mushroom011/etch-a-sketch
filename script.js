@@ -52,6 +52,8 @@ setRandomColorButton.addEventListener('click', toggleRandomColor);
 
 const getNumberOfSquaresFromUser = () => {
     const numberOfSquares = prompt('Enter the number of squares per side for the new grid');
+    if(numberOfSquares === null) return;
+
     squares = parseInt(numberOfSquares, 10);
     if(squares > 100 || squares <= 0) alert('The number of squares must be more then 0 or less then 100!');
     removeGrid();
