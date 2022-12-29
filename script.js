@@ -2,11 +2,25 @@ const gridContainer = document.querySelector('#grid-container');
 const setGridSizeButton = document.querySelector('#setGridSize');
 const setRandomColorButton = document.querySelector('#setRandomColor');
 const enableOpacityButton = document.querySelector('#enableOpacity');
+const clearGridButton = document.querySelector('#clearGrid');
 const initialSquaresNumber = 256;
 const initialGridSize = 16;
 const gridWidth = 500;
 let squareBackgroundColorRandom = false;
 let enableOpacity = false;
+let squares = 1;
+
+const clearGrid = () => {
+    if(squares === 1){
+        removeGrid();
+        renderGrid();
+    } else {
+        removeGrid();
+        renderGrid(squares * squares, squares);
+    }
+}
+
+clearGridButton.addEventListener('click', clearGrid);
 
 const createGridElement = () => {
     const grid = document.createElement('div');
@@ -38,9 +52,9 @@ setRandomColorButton.addEventListener('click', toggleRandomColor);
 
 const getNumberOfSquaresFromUser = () => {
     const numberOfSquares = prompt('Enter the number of squares per side for the new grid');
-    let squares = parseInt(numberOfSquares, 10);
+    squares = parseInt(numberOfSquares, 10);
     if(squares > 100 || squares <= 0) alert('The number of squares must be more then 0 or less then 100!');
-    clearGrid();
+    removeGrid();
     renderGrid(squares * squares, squares);
 }
 
@@ -64,7 +78,7 @@ const addOneSquareToGrid = (grid, squareSize) => {
     grid.append(square);
 }
 
-const clearGrid = () => {
+const removeGrid = () => {
     const grid = document.querySelector('.grid');
     grid.remove();
 }
