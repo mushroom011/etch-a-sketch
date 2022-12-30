@@ -9,11 +9,23 @@
     <script src="./script.js" defer></script>
   </head>
   <body>
-    <div id="grid-container" class="grid-container">
-      <button id="setGridSize" class="btn">Set Grid Size</button>
-      <button id="setRandomColor" class="btn">Set Random Color</button>
-      <button id="enableOpacity" class="btn">Enable Opacity</button>
-      <button id="clearGrid" class="btn">Clear</button>
+    <div class="wrapper">
+      <div id="grid-container" class="grid-container">
+        <div class="settings-panel">
+          <button id="setGridSize" class="btn">Set Grid Size</button>
+          <label for="randomColorSwitch" class="switch">
+            Enable Random Color
+            <input id="randomColorSwitch" name="randomColor" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+          <label for="enableOpacitySwitch" class="switch">
+            Enable Opacity
+            <input id="enableOpacitySwitch" name="randomColor" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+          <button id="clearGrid" class="btn">Clear</button>
+        </div>
+      </div>
     </div>
   </body>
 </html>

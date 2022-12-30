@@ -1,7 +1,7 @@
 const gridContainer = document.querySelector('#grid-container');
 const setGridSizeButton = document.querySelector('#setGridSize');
-const setRandomColorButton = document.querySelector('#setRandomColor');
-const enableOpacityButton = document.querySelector('#enableOpacity');
+const randomColorSwitch = document.querySelector('#randomColorSwitch');
+const enableOpacitySwitch = document.querySelector('#enableOpacitySwitch');
 const clearGridButton = document.querySelector('#clearGrid');
 const initialSquaresNumber = 256;
 const initialGridSize = 16;
@@ -42,13 +42,13 @@ const toggleEnableOpacity = () => {
     enableOpacity = !enableOpacity;
 }
 
-enableOpacityButton.addEventListener('click', toggleEnableOpacity)
+enableOpacitySwitch.addEventListener('click', toggleEnableOpacity)
 
 const toggleRandomColor = () => {
     squareBackgroundColorRandom = !squareBackgroundColorRandom;
 }
 
-setRandomColorButton.addEventListener('click', toggleRandomColor);
+randomColorSwitch.addEventListener('click', toggleRandomColor);
 
 const getNumberOfSquaresFromUser = () => {
     const numberOfSquares = prompt('Enter the number of squares per side for the new grid');
