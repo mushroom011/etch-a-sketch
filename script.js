@@ -1,4 +1,5 @@
 const gridContainer = document.querySelector('#grid-container');
+const colorPicker = document.querySelector('#colorPicker');
 const setGridSizeButton = document.querySelector('#setGridSize');
 const randomColorSwitch = document.querySelector('#randomColorSwitch');
 const enableOpacitySwitch = document.querySelector('#enableOpacitySwitch');
@@ -9,6 +10,7 @@ const gridWidth = 500;
 let squareBackgroundColorRandom = false;
 let enableOpacity = false;
 let squares = 1;
+let color = 'black';
 
 const clearGrid = () => {
     if(squares === 1){
@@ -19,6 +21,12 @@ const clearGrid = () => {
         renderGrid(squares * squares, squares);
     }
 }
+
+const handleColorChange = (e) => {
+    color = e.target.value;
+}
+
+colorPicker.addEventListener('input', handleColorChange);
 
 clearGridButton.addEventListener('click', clearGrid);
 
@@ -67,7 +75,7 @@ const getRandomColor = () => {
 }
 
 const changeSquareBackgroundColor = (e) => {
-  e.target.style.backgroundColor = squareBackgroundColorRandom ? getRandomColor() : 'black';
+  e.target.style.backgroundColor = squareBackgroundColorRandom ? getRandomColor() : color;
   if(enableOpacity) setOpacity(e.target);
 }
 
