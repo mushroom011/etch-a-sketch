@@ -32,28 +32,18 @@ const handleColorChange = (e) => {
 colorPicker.addEventListener('input', handleColorChange);
 clearGridButton.addEventListener('click', reRenderGrid);
 
-const setOpacity = (el) => {
-    if(el.dataset.opacity === '1.0') return;
-    if (!el.dataset.opacity) el.dataset.opacity = '0.1';
-
-    const opacityValue = (parseFloat(el.dataset.opacity) + 0.1).toFixed(1);
-    el.style.opacity = opacityValue;
-    el.dataset.opacity = opacityValue;
-}
-
 const toggleEnableOpacity = () => {
     enableOpacity = !enableOpacity;
 }
-enableOpacitySwitch.addEventListener('click', toggleEnableOpacity)
-
 const toggleRandomColor = () => {
     squareBackgroundColorRandom = !squareBackgroundColorRandom;
 }
-randomColorSwitch.addEventListener('click', toggleRandomColor);
-
 const toggleEnableEraser = () => {
     enableEraser = !enableEraser;
 }
+
+enableOpacitySwitch.addEventListener('click', toggleEnableOpacity)
+randomColorSwitch.addEventListener('click', toggleRandomColor);
 enableEraserSwitch.addEventListener('click', toggleEnableEraser);
 
 const updateRangeBackground = (range) => {
@@ -81,6 +71,15 @@ gridSizeRange.addEventListener('input', handleRangeInput);
 
 const getRandomColor = () => {
     return '#' + Math.floor(Math.random() * 16777215).toString(16);
+}
+
+const setOpacity = (el) => {
+    if(el.dataset.opacity === '1.0') return;
+    if (!el.dataset.opacity) el.dataset.opacity = '0.1';
+
+    const opacityValue = (parseFloat(el.dataset.opacity) + 0.1).toFixed(1);
+    el.style.opacity = opacityValue;
+    el.dataset.opacity = opacityValue;
 }
 
 const changeSquareBackgroundColor = (e) => {
