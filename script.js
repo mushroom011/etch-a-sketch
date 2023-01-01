@@ -3,6 +3,7 @@ const colorPicker = document.querySelector('#colorPicker');
 const gridSizeRange = document.querySelector('#gridSizeRange');
 const randomColorSwitch = document.querySelector('#randomColorSwitch');
 const enableOpacitySwitch = document.querySelector('#enableOpacitySwitch');
+const enableEraserSwitch = document.querySelector('#enableEraserSwitch');
 const clearGridButton = document.querySelector('#clearGrid');
 const gridSizeLabel = document.querySelector('#gridSizeLabel');
 const gridWidth = 500;
@@ -11,6 +12,7 @@ let gridSize = parseInt(gridSizeRange.value, 10);
 let squares = gridSize * gridSize;
 let squareBackgroundColorRandom = false;
 let enableOpacity = false;
+let enableEraser = false;
 let color = 'black';
 
 const removeGrid = () => {
@@ -42,14 +44,17 @@ const setOpacity = (el) => {
 const toggleEnableOpacity = () => {
     enableOpacity = !enableOpacity;
 }
-
 enableOpacitySwitch.addEventListener('click', toggleEnableOpacity)
 
 const toggleRandomColor = () => {
     squareBackgroundColorRandom = !squareBackgroundColorRandom;
 }
-
 randomColorSwitch.addEventListener('click', toggleRandomColor);
+
+const toggleEnableEraser = () => {
+    enableEraser = !enableEraser;
+}
+enableEraserSwitch.addEventListener('click', toggleEnableEraser);
 
 const updateRangeBackground = (range) => {
     const value = (range.value - range.min) / (range.max - range.min) * 100;
@@ -79,8 +84,12 @@ const getRandomColor = () => {
 }
 
 const changeSquareBackgroundColor = (e) => {
-  e.target.style.backgroundColor = squareBackgroundColorRandom ? getRandomColor() : color;
-  if(enableOpacity) setOpacity(e.target);
+    if(enableEraser) {
+        e.target.style.backgroundColor = '#ffffff';
+    } else {
+        e.target.style.backgroundColor = squareBackgroundColorRandom ? getRandomColor() : color;
+        if(enableOpacity) setOpacity(e.target);
+    }
 }
 
 const addOneSquareToGrid = (grid, squareSize) => {
