@@ -15,7 +15,6 @@
           <label for="colorPicker" class="settings-panel__label">
             Choose color
             <input id="colorPicker" type="color"></label>
-          <button id="setGridSize" class="btn">Set Grid Size</button>
           <label for="randomColorSwitch" class="settings-panel__label">
             Enable Random Color
             <input id="randomColorSwitch" name="randomColor" type="checkbox" />
@@ -26,6 +25,8 @@
             <input id="enableOpacitySwitch" name="randomColor" type="checkbox" />
             <span class="slider"></span>
           </label>
+          <label for="gridSizeRange">Grid Size - <span id="gridSizeLabel">16 x 16</span></label>
+          <input id="gridSizeRange" type="range" value="16" min="1" max="50" class="range">
           <button id="clearGrid" class="btn">Clear</button>
         </div>
       </div>

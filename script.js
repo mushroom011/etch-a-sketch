@@ -1,25 +1,26 @@
 const gridContainer = document.querySelector('#grid-container');
 const colorPicker = document.querySelector('#colorPicker');
-const setGridSizeButton = document.querySelector('#setGridSize');
+const gridSizeRange = document.querySelector('#gridSizeRange');
 const randomColorSwitch = document.querySelector('#randomColorSwitch');
 const enableOpacitySwitch = document.querySelector('#enableOpacitySwitch');
 const clearGridButton = document.querySelector('#clearGrid');
-const initialSquaresNumber = 256;
-const initialGridSize = 16;
+const gridSizeLabel = document.querySelector('#gridSizeLabel');
 const gridWidth = 500;
+
+let gridSize = parseInt(gridSizeRange.value, 10);
+let squares = gridSize * gridSize;
 let squareBackgroundColorRandom = false;
 let enableOpacity = false;
-let squares = 1;
 let color = 'black';
 
-const clearGrid = () => {
-    if(squares === 1){
-        removeGrid();
-        renderGrid();
-    } else {
-        removeGrid();
-        renderGrid(squares * squares, squares);
-    }
+const removeGrid = () => {
+    const grid = document.querySelector('.grid');
+    grid.remove();
+}
+
+const reRenderGrid = () => {
+    removeGrid();
+    renderGrid(squares, gridSize);
 }
 
 const handleColorChange = (e) => {
@@ -27,15 +28,7 @@ const handleColorChange = (e) => {
 }
 
 colorPicker.addEventListener('input', handleColorChange);
-
-clearGridButton.addEventListener('click', clearGrid);
-
-const createGridElement = () => {
-    const grid = document.createElement('div');
-    grid.classList.add('grid');
-    gridContainer.append(grid);
-    return grid;
-}
+clearGridButton.addEventListener('click', reRenderGrid);
 
 const setOpacity = (el) => {
     if(el.dataset.opacity === '1.0') return;
@@ -58,20 +51,31 @@ const toggleRandomColor = () => {
 
 randomColorSwitch.addEventListener('click', toggleRandomColor);
 
-const getNumberOfSquaresFromUser = () => {
-    const numberOfSquares = prompt('Enter the number of squares per side for the new grid');
-    if(numberOfSquares === null) return;
-
-    squares = parseInt(numberOfSquares, 10);
-    if(squares > 100 || squares <= 0) alert('The number of squares must be more then 0 or less then 100!');
-    removeGrid();
-    renderGrid(squares * squares, squares);
+const updateRangeBackground = (range) => {
+    const value = (range.value - range.min) / (range.max - range.min) * 100;
+    range.style.background = 'linear-gradient(to right, #386A20 0%, #386A20 ' + value + '%, #DFE4D6 ' + value + '%, #DFE4D6 100%)';
 }
 
-setGridSizeButton.addEventListener('click', getNumberOfSquaresFromUser);
+const updateRangeLabel = (numberOfSquares) => {
+    gridSizeLabel.textContent = `${numberOfSquares} x ${numberOfSquares}`;
+}
+
+const handleRangeInput = (e) => {
+    const target = e.target;
+    const numberOfSquares = target.value;
+
+    updateRangeBackground(target);
+    updateRangeLabel(numberOfSquares);
+
+    gridSize = parseInt(numberOfSquares, 10);
+    squares = gridSize * gridSize;
+    reRenderGrid();
+}
+
+gridSizeRange.addEventListener('input', handleRangeInput);
 
 const getRandomColor = () => {
-    return '#' + Math.floor(Math.random()*16777215).toString(16);
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
 }
 
 const changeSquareBackgroundColor = (e) => {
@@ -88,12 +92,14 @@ const addOneSquareToGrid = (grid, squareSize) => {
     grid.append(square);
 }
 
-const removeGrid = () => {
-    const grid = document.querySelector('.grid');
-    grid.remove();
+const createGridElement = () => {
+    const grid = document.createElement('div');
+    grid.classList.add('grid');
+    gridContainer.append(grid);
+    return grid;
 }
 
-const renderGrid = (squaresNumber = initialSquaresNumber, gridSize = initialGridSize) => {
+const renderGrid = (squaresNumber, gridSize) => {
     const squareSize = gridWidth / gridSize;
     const grid = createGridElement();
     for (let i = 0; i < squaresNumber; i ++) {
@@ -101,4 +107,4 @@ const renderGrid = (squaresNumber = initialSquaresNumber, gridSize = initialGrid
     }
 }
 
-renderGrid();
+renderGrid(squares, gridSize);
