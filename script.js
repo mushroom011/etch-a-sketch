@@ -82,12 +82,25 @@ const setOpacity = (el) => {
     el.dataset.opacity = opacityValue;
 }
 
+const removeOpacity = (el) => {
+    el.style.removeProperty('opacity');
+    el.removeAttribute('data-opacity');
+}
+
+const setBackgroundColor = (el) => {
+    el.style.backgroundColor = squareBackgroundColorRandom ? getRandomColor() : color;
+}
+
 const changeSquareBackgroundColor = (e) => {
-    if(enableEraser) {
-        e.target.style.backgroundColor = '#ffffff';
+    if(enableEraser){
+        e.target.style.removeProperty('background-color');
+        removeOpacity(e.target);
+    } else if(enableOpacity){
+        setOpacity(e.target);
+        setBackgroundColor(e.target);
     } else {
-        e.target.style.backgroundColor = squareBackgroundColorRandom ? getRandomColor() : color;
-        if(enableOpacity) setOpacity(e.target);
+        removeOpacity(e.target);
+        setBackgroundColor(e.target);
     }
 }
 
